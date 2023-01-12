@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using CommandLine;
 using Dipsy.VeracodeReport.Converter.Interfaces;
 using Dipsy.VeracodeReport.Converter.Schema;
 
@@ -106,7 +106,7 @@ namespace Dipsy.VeracodeReport.Converter
 
         private string FormatViolatedPolicyRules(IEnumerable<PolicyRule> componentViolatedPolicyRules)
         {
-            return string.Join("\n", componentViolatedPolicyRules.Select(x => x.desc));
+            return string.Join("\n", componentViolatedPolicyRules.Select(x => $"{GetPolicyRuleTypeStringValue(x.type)}: {x.desc}"));
         }
 
         private string FormatLicenses(IEnumerable<License> componentLicenses)
@@ -117,6 +117,23 @@ namespace Dipsy.VeracodeReport.Converter
         private string FormatFilePaths(IEnumerable<FilePath> componentFilePaths)
         {
             return string.Join("\n", componentFilePaths.Select(x => x.value));
+        }
+        private static string GetPolicyRuleTypeStringValue(PolicyRuleType policyRuleType)
+        {
+            switch (policyRuleType)
+            {
+                case PolicyRuleType.DisallowVulnerabilitiesbySeverity:
+                    return "Disallow Vulnerabilities by Severity";
+                case PolicyRuleType.DisallowCVSSScore:
+                    return "Disallow Vulnerabilities by CVSS Score";
+                case PolicyRuleType.DisallowComponentBlocklist:
+                    return "Disallow Blocklisted Components";
+                case PolicyRuleType.DisallowComponentByLicenseRisk:
+                    return "Disallow Component By License Risk";
+                default:
+                    return "Unidentified rule";
+            }
+
         }
     }
 }

@@ -2031,8 +2031,12 @@ namespace Dipsy.VeracodeReport.Converter.Schema
         DisallowCVSSScore,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("Disallow Component Blacklist")]
-        DisallowComponentBlacklist,
+        [System.Xml.Serialization.XmlEnumAttribute("Disallow Component Blocklist")]
+        DisallowComponentBlocklist,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("Disallow Component by License Risk")]
+        DisallowComponentByLicenseRisk
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
